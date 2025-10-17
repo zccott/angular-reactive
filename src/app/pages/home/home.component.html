@@ -1,0 +1,90 @@
+<main>
+    <div class="heading">
+        <h1>Rigister</h1>
+        <h2>Plesae fill in the information below to register</h2>
+    </div>
+    <form [formGroup]="registerForm" class="form-container">
+
+        <!-- Row 1: First Name & Last Name -->
+        <div class="form-row">
+            <div class="input">
+                <label for="firstName">First name</label>
+                <input id="firstName" type="text" formControlName="firstName" placeholder="Enter your first name" />
+                <div *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid">
+                    Must be exactly 5 characters
+                </div>
+            </div>
+
+            <div class="input">
+                <label for="lastName">Last name</label>
+                <input id="lastName" type="text" formControlName="lastName" placeholder="Enter your last name" />
+                <div *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid">
+                    Max 10 characters allowed
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Age & Email -->
+        <div class="form-row">
+            <div class="input">
+                <label for="age">Age</label>
+                <input id="age" type="number" formControlName="age" placeholder="Enter your age" />
+                <div *ngIf="registerForm.get('age')?.touched && registerForm.get('age')?.invalid">
+                    Age must be between 17 and 20
+                </div>
+            </div>
+
+            <div class="input">
+                <label for="email">Work email</label>
+                <input id="email" type="email" formControlName="email" placeholder="Enter your work email" />
+                <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+                    Must be a valid email
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: Gender -->
+        <div class="form-row">
+            <div class="input full-width">
+                <label>Gender</label>
+                <div class="gender-options">
+                    <label><input type="radio" formControlName="gender" value="Male" /> Male</label>
+                    <label><input type="radio" formControlName="gender" value="Female" /> Female</label>
+                    <label><input type="radio" formControlName="gender" value="Prefer Not to Say" /> Prefer Not to
+                        Say</label>
+                </div>
+                <div *ngIf="registerForm.get('gender')?.touched && registerForm.get('gender')?.invalid">
+                    Gender is required
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 4: Password & Confirm Password -->
+        <div class="form-row">
+            <div class="input">
+                <label for="password">Password</label>
+                <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
+                <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+                    Minimum 6 characters required
+                </div>
+            </div>
+
+            <div class="input">
+                <label for="confirmPassword">Confirm password</label>
+                <input id="confirmPassword" type="password" formControlName="confirmPassword"
+                    placeholder="Confirm your password" />
+                <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">
+                    Passwords do not match
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    <div class="footer">
+        <div class="terms"><input type="checkbox" [(ngModel)]="termsAccepted" /> <label>Agree with <a>Terms and conditions</a></label></div>
+        <button [disabled]="!this.registerForm.valid" (click)="onRegister()">Register</button>
+    </div>
+
+</main>
